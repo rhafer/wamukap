@@ -22,11 +22,20 @@ jobs:
         python-version: 3.9
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install tox
+        python3 -m pip install --upgrade pip
+        pip install tox build
     - name: Lint with flake8
       run: |
         tox -e flake8
     - name: Unit Test
       run: |
         tox -e unit
+#    - name: Build wheel
+#      run: |
+#        python3 -m build
+#    - name: Release
+#      uses: softprops/action-gh-release@v1
+#      with:
+#        files: dist/*.whl
+#      env:
+#        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
