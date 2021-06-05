@@ -13,14 +13,13 @@
 # limitations under the License.
 
 import aiohttp
-from aiokafka import AIOKafkaProducer
-from aiokafka.helpers import create_ssl_context
 import asyncio
 import logging
 import re
 from time import perf_counter
 
 from wamukap.common import config
+from wamukap.common import kafka
 from wamukap.common.monitor_result import MonitorResult
 
 
@@ -67,23 +66,6 @@ async def _watch_url(queue, url, interval, regexp=None):
         await asyncio.sleep(interval)
 
 
-async def _connect_kafka(kafka_cfg):
-    logging.debug("Connection to Kafka at {}".format(kafka_cfg['servers']))
-    context = create_ssl_context(
-        cafile=kafka_cfg['ssl_ca_cert'],
-        certfile=kafka_cfg['ssl_cert'],
-        keyfile=kafka_cfg['ssl_cert_key']
-    )
-
-    producer = AIOKafkaProducer(
-            bootstrap_servers=kafka_cfg['servers'],
-            security_protocol='SSL',
-            ssl_context=context
-    )
-    await producer.start()
-    return producer
-
-
 async def _kafka_worker(producer, queue):
     try:
         while True:
@@ -101,7 +83,7 @@ async def _monitor_urls(cfg):
     tasks = []
     queue = asyncio.Queue()
 
-    kafka_producer = await _connect_kafka(cfg.kafka)
+    kafka_producer = await kafka.get_producer(cfg.kafka)
     kafka_producer_task = asyncio.create_task(
         _kafka_worker(kafka_producer, queue)
     )

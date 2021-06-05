@@ -34,8 +34,8 @@ async def test_watch_url(mock_check_url, mock_sleep):
 @patch('wamukap.common.config.WamConfig')
 @patch('wamukap.producer._kafka_worker', new_callable=AsyncMock)
 @patch('wamukap.producer._watch_url', new_callable=AsyncMock)
-@patch('wamukap.producer._connect_kafka', new_callable=AsyncMock)
-async def test_monitor_url(mock_connect_kafka,
+@patch('wamukap.common.kafka.get_producer', new_callable=AsyncMock)
+async def test_monitor_url(mock_get_producer,
                            mock_watch_url,
                            mock_kafka_worker,
                            mock_config):
