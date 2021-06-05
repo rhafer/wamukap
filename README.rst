@@ -1,6 +1,3 @@
-.. image:: https://travis-ci.com/rhafer/wamukap.svg?branch=master
-   :target: https://travis-ci.com/github/rhafer/wamukap
-
 Website Availability Monitor using Kafka and PostgreSQL (wamukap)
 ================================================================
 
