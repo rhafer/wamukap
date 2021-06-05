@@ -3,6 +3,7 @@ servers = [ "server:9092" ]
 ssl_ca_cert = "ca-cert.pem"
 ssl_cert = "cert.pem"
 ssl_cert_key = "cert-key.key"
+topic = "wamukap"
 
 [watcher]
 interval = 10

@@ -66,13 +66,13 @@ async def _watch_url(queue, url, interval, regexp=None):
         await asyncio.sleep(interval)
 
 
-async def _kafka_worker(producer, queue):
+async def _kafka_worker(producer, topic, queue):
     try:
         while True:
             item = await queue.get()
             logging.debug('kafka {} {} queue len {}'.format(item.url, item.request_success, queue.qsize()))
             # Produce message
-            await producer.send_and_wait("wamukap", item.to_json().encode())
+            await producer.send_and_wait(topic, item.to_json().encode())
             queue.task_done()
     finally:
         # Wait for all pending messages to be delivered or expire.
@@ -85,7 +85,9 @@ async def _monitor_urls(cfg):
 
     kafka_producer = await kafka.get_producer(cfg.kafka)
     kafka_producer_task = asyncio.create_task(
-        _kafka_worker(kafka_producer, queue)
+        _kafka_worker(producer=kafka_producer,
+                      topic=cfg.kafka['topic'],
+                      queue=queue)
     )
     tasks.append(kafka_producer_task)
 

@@ -41,7 +41,9 @@ async def test_monitor_url(mock_get_producer,
                            mock_config):
     cfg = wamukap.common.config.WamConfig()
     config_dict = {
-        'kafka': {},
+        'kafka': {
+            'topic': 'topic'
+        },
         'watcher': {
             'interval': 3,
             'sites': [{

@@ -16,8 +16,9 @@ import logging
 from aiokafka import AIOKafkaProducer
 from aiokafka.helpers import create_ssl_context
 
+
 async def get_producer(kafka_cfg):
-    logging.debug("Connection to Kafka at {}".format(kafka_cfg['servers']))
+    logging.debug("Creating Kafka producer for {}".format(kafka_cfg['servers']))
     context = create_ssl_context(
         cafile=kafka_cfg['ssl_ca_cert'],
         certfile=kafka_cfg['ssl_cert'],
