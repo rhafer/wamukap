@@ -1,0 +1,23 @@
+[kafka]
+servers = [ "server:9092" ]
+ssl_ca_cert = "ca-cert.pem"
+ssl_cert = "cert.pem"
+ssl_cert_key = "cert-key.key"
+
+[watcher]
+interval = 10
+
+[[watcher.sites]]
+url = "https://aiven.com/"
+regexp = "html"
+
+[[watcher.sites]]
+url = "http://h4kamp.net/"
+interval = 1
+
+[[watcher.sites]]
+url = "http://domain-doesnt-exist-abc.com/"
+
+[[watcher.sites]]
+url = "http://google.com/"
+interval = 2
