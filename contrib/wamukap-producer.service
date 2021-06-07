@@ -1,0 +1,12 @@
+[Unit]
+Description=Website Availability Monitor Producer
+After=syslog.target network.target
+
+[Service]
+Type=simple
+User=wamukap
+Group=wamukap
+ExecStart=/usr/bin/wamukap-producer
+
+[Install]
+WantedBy=multi-user.target

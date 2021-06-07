@@ -1,0 +1,10 @@
+[Unit]
+Description=Website Availability Monitor Consumer
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/wamukap-consumer
+
+[Install]
+WantedBy=multi-user.target
