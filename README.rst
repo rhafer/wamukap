@@ -48,7 +48,17 @@ The ``[watcher]`` section
 Usage
 =====
 
+``wamukap-consumer`` and ``wamukap-producer`` support the same command line arguments, all
+of the are optional:
+
+-h, --help                                    show help message and exit
+-c CONFIG_FILE, --config-file CONFIG_FILE     Path to the configuration file (default:/etc/wamukap.toml)
+-l LOG_LEVEL, --log-level LOG_LEVEL           Override log-level from config file
+
 License
 =======
 
 Licensed under the Apache License, Version 2.0. See LICENSE for the full license text.
+
+Contributing
+============
