@@ -54,13 +54,25 @@ class WamConfig(object):
     def __init__(self):
         self._cfg = None
 
-    def validate_kafka_config(self):
+    def validate_kafka_config(self, consumer=False):
         if 'kafka' not in self.cfg:
             raise ConfigurationError('"kafka" section is missing in config file')
-        for i in ['servers', 'ssl_ca_cert', 'ssl_cert', 'ssl_cert_key', 'topic']:
+
+        required_keys = ['servers', 'ssl_ca_cert', 'ssl_cert', 'ssl_cert_key', 'topic']
+        # the consumer also requires a group_id setting for the auto-commit
+        if consumer:
+            required_keys.append('consumer_group_id')
+        for i in required_keys:
             if i not in self.cfg['kafka'] or not self.cfg['kafka'][i]:
                 raise ConfigurationError(
                     '"kafka" section is missing "{}" setting'.format(i))
+
+    def validate_pg_config(self):
+        if 'database' not in self.cfg:
+            raise ConfigurationError('"database" section is missing in config file')
+        # FIXME we might wanna add some more validation in here. But the
+        # config is passed directly into the aiopg module which does its
+        # own validation via libpg
 
     def validate_watcher_urls(self):
         if 'sites' not in self._cfg['watcher']:
@@ -74,6 +86,10 @@ class WamConfig(object):
     def validate_producer_config(self):
         self.validate_kafka_config()
         self.validate_watcher_urls()
+
+    def validate_consumer_config(self):
+        self.validate_pg_config()
+        self.validate_kafka_config(consumer='True')
 
     def read_config(self, cfg_file):
         self._cfg = toml.load(cfg_file)

@@ -6,6 +6,7 @@ ssl_ca_cert = "ca-cert.pem"
 ssl_cert = "cert.pem"
 ssl_cert_key = "cert-key.key"
 topic = "wamukap"
+consumer_group_id = "wamukap"
 
 [watcher]
 interval = 10
@@ -24,3 +25,12 @@ url = "http://domain-doesnt-exist-abc.com/"
 [[watcher.sites]]
 url = "http://google.com/"
 interval = 2
+
+[database]
+host = "hostname"
+port = 18935
+database = "wamukap"
+user = "dbuser"
+password = "secret"
+sslmode = "require"
+sslrootcert = "ca-cert.pem"
