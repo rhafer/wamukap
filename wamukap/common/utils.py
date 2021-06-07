@@ -28,7 +28,7 @@ def parse_args(DESCRIPTION):
     parser = argparse.ArgumentParser(
             description=DESCRIPTION
     )
-    parser.add_argument('-c', '--config-file', default='/etc/wamukap.toml',
+    parser.add_argument('-c', '--config-file', default='/etc/wamukap/wamukap.toml',
                         help='Path to the configuration file (default:%(default)s)')
     parser.add_argument('-l', '--log-level', default=None,
                         help='Override log-level from config file')

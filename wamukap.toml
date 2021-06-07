@@ -2,9 +2,9 @@ log-level = "WARNING"
 
 [kafka]
 servers = [ "server:9092" ]
-ssl_ca_cert = "ca-cert.pem"
-ssl_cert = "cert.pem"
-ssl_cert_key = "cert-key.key"
+ssl_ca_cert = "/etc/wamukap/ca-cert.pem"
+ssl_cert = "/etc/wamukap/cert.pem"
+ssl_cert_key = "/etc/wamukap/cert-key.key"
 topic = "wamukap"
 consumer_group_id = "wamukap"
 
@@ -33,4 +33,4 @@ database = "wamukap"
 user = "dbuser"
 password = "secret"
 sslmode = "require"
-sslrootcert = "ca-cert.pem"
+sslrootcert = "/etc/wamukap/ca-cert.pem"
